@@ -37,16 +37,17 @@ All PI Web API server methods are mapped on this client. Please refer to [PI Web
 
 ### Create an instance of the PI Web API top level object.
 
-#### Basic Authentication
 ```python
     from pidevguru.piwebapi.pi_web_api_client import PIWebApiClient
-    piwebapi = PIWebApiClient("https://webserver/piwebapi", useKerberos=False, username="username", password="password", verifySsl=true)  
+    piwebapi = PIWebApiClient("https://webserver/piwebapi", verifySsl=True) 
+    piwebapi.set_basic_auth("username", "password")	
 ``` 
 
 #### Kerberos Authentication
 ```python
     from pidevguru.piwebapi.pi_web_api_client import PIWebApiClient
-    piwebapi = PIWebApiClient("https://webserver/piwebapi", useKerberos=True, verifySsl=False)  
+    piwebapi = PIWebApiClient("https://webserver/piwebapi", verifySsl=False)  
+	piwebapi.set_kerberos_auth()	
 ``` 
 
 ### Get the PI Data Archive WebId
