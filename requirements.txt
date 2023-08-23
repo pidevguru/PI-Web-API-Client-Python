@@ -1,0 +1,5 @@
+six == 1.8.0
+setuptools >= 21.0.0
+requests >= 2.31.0
+requests-kerberos >= 0.14.0
+
