@@ -1,6 +1,6 @@
 # coding: utf-8
 from requests.auth import HTTPBasicAuth
-from requests_kerberos import HTTPKerberosAuth, OPTIONAL
+from requests_kerberos import HTTPKerberosAuth, OPTIONAL, REQUIRED, DISABLED
 
 
 import re
@@ -68,8 +68,21 @@ class ApiClient(object):
         """
         self.default_headers['User-Agent'] = value
 
-    def set_kerberos_auth(self):
-        self.rest_client.auth = HTTPKerberosAuth(force_preemptive=True, mutual_authentication=OPTIONAL, delegate=True)
+    def set_kerberos_auth(self, mode):
+        if mode == 0:
+            self.rest_client.auth = HTTPKerberosAuth(force_preemptive=True, mutual_authentication=OPTIONAL,
+                                                     delegate=True)
+        elif mode == 1:
+            self.rest_client.auth = HTTPKerberosAuth(mutual_authentication=OPTIONAL)
+        elif mode == 2:
+            self.rest_client.auth = HTTPKerberosAuth(mutual_authentication=REQUIRED,
+                                                     sanitize_mutual_error_response=False)
+        elif mode == 3:
+            self.rest_client.auth =  HTTPKerberosAuth(mutual_authentication=REQUIRED, force_preemptive=True)
+        elif mode == 4:
+            self.rest_client.auth = HTTPKerberosAuth(mutual_authentication=DISABLED)
+        elif mode == 5:
+            self.rest_client.auth  = HTTPKerberosAuth(delegate=True)
 
     def set_basic_auth(self, username, password):
         self.rest_client.auth = HTTPBasicAuth(username, password)

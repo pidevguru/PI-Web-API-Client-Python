@@ -53,8 +53,8 @@ class PIWebApiClient(object):
         self.__password = password
         self.__api_client.set_basic_auth(self.__username, self.__password)
 
-    def set_kerberos_auth(self):
-        self.__api_client.set_kerberos_auth()
+    def set_kerberos_auth(self, mode=0):
+        self.__api_client.set_kerberos_auth(mode)
 
     def create_controllers(self):
         self.__analysisApi = AnalysisControllerClient(self.__api_client)
